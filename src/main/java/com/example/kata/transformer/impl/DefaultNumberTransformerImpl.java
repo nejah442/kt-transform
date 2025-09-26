@@ -8,6 +8,12 @@ import org.springframework.stereotype.Component;
 @Component("defaultTransformer")
 @Primary
 public class DefaultNumberTransformerImpl implements NumberTransformer {
+
+    /**
+     * api implementation for number transformation
+     * @param number to transform
+     * @return String transformed
+     */
     @Override
     public String transformNumber(int number) {
         StringBuilder result = new StringBuilder();

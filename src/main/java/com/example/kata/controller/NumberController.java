@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/api/number")
+@RequestMapping("/api/kata")
 @Validated
 @Tag(name = "Number Transformation", description = "Transforme des nombres entre 0 et 100 selon les règles FOO, BAR, QUIX")
 public class NumberController {

@@ -10,7 +10,7 @@ public class TransformationServiceImpl implements TransformationService {
 
     private final NumberTransformer transformer;
 
-    public TransformationServiceImpl(@Qualifier("alternateTransformer") NumberTransformer transformer) {
+    public TransformationServiceImpl(NumberTransformer transformer) {
         this.transformer = transformer;
     }
 
