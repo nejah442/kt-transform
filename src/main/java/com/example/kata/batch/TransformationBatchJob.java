@@ -7,6 +7,7 @@ import com.example.kata.batch.skip.NumberSkipPolicy;
 import com.example.kata.batch.writer.NumberResultWriter;
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.Step;
+import org.springframework.batch.core.StepExecutionListener;
 import org.springframework.batch.core.configuration.annotation.EnableBatchProcessing;
 import org.springframework.batch.core.configuration.support.DefaultBatchConfiguration;
 import org.springframework.batch.core.job.builder.JobBuilder;
@@ -52,6 +53,9 @@ public class TransformationBatchJob {
     @Autowired
     private NumberSkipPolicy numberSkipPolicy;
 
+    @Autowired
+    private StepExecutionListener transformationListener;
+
     @Bean
     @Qualifier("transformationJob")
     public Job transformationJob() throws Exception {
@@ -69,6 +73,7 @@ public class TransformationBatchJob {
                 .writer(numberResultWriter)
                 .faultTolerant()
                 .skipPolicy(numberSkipPolicy)
+                .listener(transformationListener)
                 .build();
     }
 

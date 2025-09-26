@@ -6,6 +6,8 @@ import org.springframework.batch.core.step.skip.SkipPolicy;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 
+import java.io.IOException;
+
 @Component
 @Profile("batch")
 public class NumberSkipPolicy implements SkipPolicy {
@@ -13,7 +15,8 @@ public class NumberSkipPolicy implements SkipPolicy {
     public boolean shouldSkip(Throwable t, long skipCount) throws SkipLimitExceededException {
         return t instanceof NumberFormatException && t.getMessage().equals(ExceptionConstants.NOT_A_NUMBER)
                 || t instanceof IllegalArgumentException && t.getMessage().equals(ExceptionConstants.NULL_NUMBER)
-                || t instanceof IllegalArgumentException && t.getMessage().equals(ExceptionConstants.OUT_OF_RANGE);
+                || t instanceof IllegalArgumentException && t.getMessage().equals(ExceptionConstants.OUT_OF_RANGE)
+                || t instanceof IOException && t.getMessage().equals(ExceptionConstants.WRITER_IO_EXCEPTION);
 
     }
 }
