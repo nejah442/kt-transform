@@ -1,8 +1,7 @@
-package com.example.kata.service.impl;
+package com.example.kata.api.service.impl;
 
-import com.example.kata.service.TransformationService;
+import com.example.kata.api.service.TransformationService;
 import com.example.kata.transformer.NumberTransformer;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 @Service

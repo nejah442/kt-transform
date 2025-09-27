@@ -1,6 +1,8 @@
 package com.example.kata.batch.writer;
 
 import com.example.kata.utils.ExceptionConstants;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.batch.item.Chunk;
 import org.springframework.batch.item.ItemWriter;
 import org.springframework.beans.factory.annotation.Value;
@@ -17,11 +19,19 @@ import java.io.IOException;
 @Profile("batch")
 public class NumberResultWriter implements ItemWriter<String> {
 
+    private static final Logger LOGGER = LoggerFactory.getLogger(NumberResultWriter.class);
     private final File outputFile;
 
     public NumberResultWriter(@Value("${batch.output-file}") Resource outputResource) throws IOException {
         this.outputFile = outputResource.getFile();
-        if (outputFile.exists()) {
+        LOGGER.info("- Output file path : {}",this.outputFile.toPath());
+
+        // create if file doesn't exist
+        if (!outputFile.exists()) {
+            if (!outputFile.createNewFile()) {
+                throw new IOException("Impossible de créer le fichier de sortie : " + outputFile.getAbsolutePath());
+            }
+        } else {
             new FileWriter(outputFile, false).close(); // overwrite mode + close directement
         }
     }

@@ -1,6 +1,6 @@
-package com.example.kata.controller.advice;
+package com.example.kata.api.controller.advice;
 
-import com.example.kata.controller.NumberController;
+import com.example.kata.api.controller.NumberController;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MissingServletRequestParameterException;
 import org.springframework.web.bind.annotation.ExceptionHandler;

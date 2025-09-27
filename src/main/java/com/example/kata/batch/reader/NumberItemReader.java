@@ -1,8 +1,9 @@
 package com.example.kata.batch.reader;
 
 import com.example.kata.utils.ExceptionConstants;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.batch.item.ExecutionContext;
-import org.springframework.batch.item.ItemReader;
 import org.springframework.batch.item.ItemStreamReader;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Profile;
@@ -17,6 +18,7 @@ import java.io.InputStreamReader;
 @Profile("batch")
 public class NumberItemReader implements ItemStreamReader<Integer> {
 
+    private static final Logger LOGGER = LoggerFactory.getLogger(NumberItemReader.class);
 
     private final Resource inputResource;
 
@@ -28,6 +30,17 @@ public class NumberItemReader implements ItemStreamReader<Integer> {
 
     @Override
     public void open(ExecutionContext executionContext) {
+
+        // check if file exists
+        if (!inputResource.exists()) {
+            throw new IllegalStateException("Le fichier d'entrée est introuvable : " + inputResource.getFilename());
+        }
+
+        // check if file readable
+        if (!inputResource.isReadable()) {
+            throw new IllegalStateException("Le fichier d'entrée n'est pas lisible : " + inputResource.getFilename());
+        }
+
         try {
             this.reader = new BufferedReader(new InputStreamReader(inputResource.getInputStream()));
         } catch (IOException e) {

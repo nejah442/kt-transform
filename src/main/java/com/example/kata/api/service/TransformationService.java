@@ -1,4 +1,4 @@
-package com.example.kata.service;
+package com.example.kata.api.service;
 
 public interface TransformationService {
     /**

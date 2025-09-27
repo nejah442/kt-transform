@@ -1,4 +1,4 @@
-package com.example.kata.controller.advice;
+package com.example.kata.api.controller.advice;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
